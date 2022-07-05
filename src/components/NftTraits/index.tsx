@@ -6,11 +6,11 @@ interface INftTraitsProps {}
 const NftTraits = (props: INftTraitsProps) => {
     return (
     <Box display={'flex'} gap={2} flexWrap={'wrap'}>
-      <NftTrait propertyId="1234" property="Some" category="category" trait={0.2}/>
-      <NftTrait propertyId="1234" property="Some" category="category" trait={0.2}/>
-      <NftTrait propertyId="1234" property="Some" category="category" trait={0.2}/>
-      <NftTrait propertyId="1234" property="Some" category="category" trait={0.2}/>
-      <NftTrait propertyId="1234" property="Some" category="category" trait={0.2}/>
+      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
+      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
+      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
+      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
+      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
     </Box>
   )
 }

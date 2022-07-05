@@ -1,26 +1,36 @@
-import { Grid } from '@mui/material'
+import { Box } from '@mui/material'
 import Button from 'components/Button'
 import Logo from 'components/Logo'
 import SearchBar from 'components/SearchBar'
+import { Link } from 'react-router-dom'
 
 interface IHeaderProps {}
 
 const Header = (props: IHeaderProps) => {
   return (
-    <Grid item width={'100%'} container justifyContent={'center'} alignItems={'center'} spacing={2}>
-      <Grid display={'flex'} justifyContent={'start'} item xs={12} md={2}>
-        {' '}
-        <Logo />
-      </Grid>
-      <Grid item xs={12} md={8}>
-        {' '}
-        <SearchBar />
-      </Grid>
-      <Grid display={'flex'} justifyContent={'center'} item xs={12} md={2}>
-        {' '}
-        <Button fullWidth>LOGIN</Button>
-      </Grid>
-    </Grid>
+    <Box
+      mb={4}
+      gap={2}
+      display={'flex'}
+      width={'100%'}
+      justifyContent={'space-between'}
+      alignItems={'center'}>
+      <Logo />
+      <SearchBar />
+      <Link
+      style={{
+        color: 'unset',
+        textDecoration: 'unset'
+      }}
+      to='/your-nfts'>
+      <Button
+        sx={{
+          fontSize: '12px'
+        }}>
+        NFTS
+      </Button>
+      </Link>
+    </Box>
   )
 }
 

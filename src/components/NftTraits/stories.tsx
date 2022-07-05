@@ -1,9 +1,9 @@
 import { Story, Meta } from "@storybook/react";
-import NftProperties from '.'
+import NftTraits from '.'
 
 export default {
-  title: 'NftProperties',
-  component: NftProperties
+  title: 'NftTraits',
+  component: NftTraits
 } as Meta
 
-export const Default: Story = () => <NftProperties />
+export const Default: Story = () => <NftTraits />

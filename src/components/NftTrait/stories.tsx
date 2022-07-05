@@ -9,9 +9,9 @@ export default {
 export const Default: Story = (args) => (
   <NftTrait
     {...args}
-    propertyId='property1'
+    id='property1'
     category='category'
     property='property'
-    trait={1}
+    rate={1}
   />
 )

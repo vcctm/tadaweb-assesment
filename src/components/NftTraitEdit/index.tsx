@@ -1,8 +1,8 @@
 import { AddCircle } from '@mui/icons-material'
 import { Box, IconButton } from '@mui/material'
-import PropertiesCard from 'components/NftTrait'
+import NftTrait from 'components/NftTrait'
 import React, { useReducer } from 'react'
-import { IPropertyEntity } from 'types'
+import { INftTraitsEntity } from 'types'
 import { v4 as uuidv4 } from 'uuid'
 import * as S from './styles'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -11,11 +11,11 @@ interface INftEditTrait {}
 
 interface IUserActions {
   type: 'newProperty' | 'removeProperty'
-  propertyId: string
+  id: string
 }
 
 interface IInitialStateProps {
-  properties: IPropertyEntity[]
+  traits: INftTraitsEntity[] | []
 }
 
 const NftTraitEdit = (props: INftEditTrait) => {
@@ -24,22 +24,22 @@ const NftTraitEdit = (props: INftEditTrait) => {
       case 'newProperty': {
         return {
           ...state,
-          properties: [
-            ...state.properties,
+          traits: [
+            ...state.traits,
             {
-              propertyId: action.propertyId,
-              propertyName: 'EDITNAME',
-              propertyCategory: 'EDITCATEGORY',
-              propertyTrait: '100'
+              id: action.id,
+              name: 'EDITNAME',
+              category: 'EDITCATEGORY',
+              rate: '100'
             }
           ]
         }
       }
       case 'removeProperty': {
-        const updatedProperties = state.properties.filter(
-          (e: IPropertyEntity) => e.propertyId !== action.propertyId
+        const updatedtraits = state.traits.filter(
+          (e: INftTraitsEntity) => e.id !== action.id
         )
-        return { ...state, properties: updatedProperties }
+        return { ...state, traits: updatedtraits }
       }
       default:
         break
@@ -48,14 +48,15 @@ const NftTraitEdit = (props: INftEditTrait) => {
   }
 
   const initialState: IInitialStateProps = {
-    properties: []
+    traits: []
   }
-
+  
+  const [state, dispatch] = useReducer(editingReducer, initialState)
   const handleNewProperty = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     dispatch({
       type: 'newProperty',
-      propertyId: uuidv4()
+      id: uuidv4()
     })
   }
 
@@ -67,7 +68,7 @@ const NftTraitEdit = (props: INftEditTrait) => {
     //TODO: add modal to confirm
     dispatch({
       type: 'removeProperty',
-      propertyId: propertyId
+      id: propertyId
     })
   }
 
@@ -81,7 +82,6 @@ const NftTraitEdit = (props: INftEditTrait) => {
     exit: {}
   }
 
-  const [state, dispatch] = useReducer(editingReducer, initialState)
 
   return (
     <motion.div
@@ -92,14 +92,14 @@ const NftTraitEdit = (props: INftEditTrait) => {
       <S.Wrapper>
         <Box display={'flex'} gap={2} flexWrap={'wrap'}>
           <AnimatePresence>
-            {state.properties.map((property) => {
+            {state.traits.map((trait: INftTraitsEntity) => {
               return (
-                <PropertiesCard
-                  key={property.propertyId}
-                  propertyId={property.propertyId}
-                  property={property.propertyName}
-                  category={property.propertyCategory}
-                  trait={property.propertyTrait}
+                <NftTrait
+                  key={trait.id}
+                  id={trait.id}
+                  property={trait.name}
+                  category={trait.category}
+                  rate={trait.rate}
                   handleRemove={handleRemoveProperty}
                   isEditing
                 />

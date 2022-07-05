@@ -10,7 +10,7 @@ const SearchBar = (props: ISearchBarProps) => {
       <S.Label>
         Search
       </S.Label>
-      <S.Input disableUnderline endAdornment={<Search/>} inputProps={{
+      <S.Input  disableUnderline endAdornment={<Search/>} inputProps={{
         label: 'Search'
       }}/>
     </FormControl>

@@ -6,20 +6,25 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import NftCreatePage from 'pages/NftCreatePage'
 import NftEditPage from 'pages/NftEditPage'
 import NftPage from 'pages/NftPage'
+import YourNftsPage from 'pages/YourNftsPage'
+import { GlobalProvider } from 'store/globalState'
 
 function App() {
   return (
-    <Router>
-      <PageRender>
-        <Header />
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/nft' element={<NftPage />} />
-          <Route path='/create-nft' element={<NftCreatePage />} />
-          <Route path='/edit-nft' element={<NftEditPage />} />
-        </Routes>
-      </PageRender>
-    </Router>
+    <GlobalProvider>
+      <Router>
+        <PageRender>
+          <Header />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/nft' element={<NftPage />} />
+            <Route path='/create-nft' element={<NftCreatePage />} />
+            <Route path='/edit-nft' element={<NftEditPage />} />
+            <Route path='/your-nfts' element={<YourNftsPage />} />
+          </Routes>
+        </PageRender>
+      </Router>
+    </GlobalProvider>
   )
 }
 

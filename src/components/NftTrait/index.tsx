@@ -6,12 +6,12 @@ import * as S from './styles'
 import { motion } from "framer-motion"
 
 interface INftTraitProps {
-  propertyId: string
+  id: string
   category?: string
   property?: string
-  trait?: number | string
+  rate?: number | string
   isEditing?: boolean
-  handleRemove?: (e: React.MouseEvent<HTMLElement>, propertyId: string) => void
+  handleRemove?: (e: React.MouseEvent<HTMLElement>, id: string) => void
 }
 
 type userActions = {
@@ -42,17 +42,17 @@ const NftTrait = (props: INftTraitProps) => {
     return state
   }
   
-  const { propertyId, category, property, trait, isEditing, handleRemove } = props
+  const { id, category, property, rate, isEditing, handleRemove } = props
   const initialState = {
     category: category,
     property: property,
-    trait: trait,
+    rate: rate,
     isEditing: isEditing 
   }
   
   const [state, dispatch] = useReducer(editingReducer, initialState)
   const theme = useTheme()
-  if (!category || !property || !trait) return <></>;
+  if (!category || !property || !rate) return <></>;
   else {
     if (state.isEditing || isEditing)
     return (
@@ -60,7 +60,7 @@ const NftTrait = (props: INftTraitProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }} whileHover={{ scale: 1.1 }}>
         <S.Wrapper>
-            <S.DeleteButton onClick={handleRemove ? (e) => handleRemove(e, propertyId) : undefined} style={{
+            <S.DeleteButton onClick={handleRemove ? (e) => handleRemove(e, id) : undefined} style={{
               transform: "scale(0.8)"
             }}><DeleteIcon fontSize='small'/></S.DeleteButton>
           <Box textAlign={'center'} p={2}>
@@ -130,12 +130,12 @@ const NftTrait = (props: INftTraitProps) => {
               }}
               endAdornment={<PercentIcon fontSize={'small'}/>}
               inputProps={{ style: { textAlign: 'center', padding: '0', paddingLeft: '12px' } }}
-              value={state.trait}
-              defaultValue={'trait'}
+              value={state.rate}
+              defaultValue={'rate'}
               onChange={(e) =>
                 dispatch({
                   type: 'field',
-                  field: 'trait',
+                  field: 'rate',
                   value: e.currentTarget.value
                 })
               }
@@ -182,7 +182,7 @@ const NftTrait = (props: INftTraitProps) => {
             }}
             color={theme.palette.grey[500]}
             fontSize={11}>
-            {`${trait}% have this trait`.toUpperCase()}
+            {`${rate}% have this trait`.toUpperCase()}
           </Typography>
         </Box>
       </S.Wrapper>

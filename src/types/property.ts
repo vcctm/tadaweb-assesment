@@ -1,6 +1,6 @@
-export interface IPropertyEntity {
-  propertyId: string
-  propertyName?: string
-  propertyCategory?: string
-  propertyTrait?: string
+export interface INftTraitsEntity {
+  id: string
+  name?: string
+  category?: string
+  rate?: string | number
 }

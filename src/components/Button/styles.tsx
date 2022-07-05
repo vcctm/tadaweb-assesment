@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 export const Wrapper = styled(Button)(({theme}) => ({
   color: theme.palette.common.white,
   backgroundColor: theme.palette.primary.main,
-  width: 'fit-content',
   fontSize: '14px',
   padding: '10.5px 77.5px',
   ':hover': {
