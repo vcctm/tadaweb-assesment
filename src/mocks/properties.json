@@ -1,3 +1,25 @@
 {
-  "properties": []
+  "nfts": [
+    {
+      "nftId": "1",
+      "nftName": "YEAHTIGERS #1",
+      "nftPrice": "0.3 ETH",
+      "nftCollection": "YeahTigers",
+      "nftDateSale": "03/07/2022",
+      "nftDescription": "coolDescription",
+      "nftImageUrl": "randomUrl",
+      "nftTraits": [
+        {
+          "category": "acessories",
+          "name": "red cap",
+          "rate": "0.03"
+        },
+        {
+          "category": "mood",
+          "name": "good mood",
+          "rate": "0.05"
+        }
+      ]
+    }
+  ]
 }

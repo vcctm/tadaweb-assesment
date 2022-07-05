@@ -5,7 +5,7 @@ import { useReducer } from 'react'
 import * as S from './styles'
 import { motion } from "framer-motion"
 
-interface IPropertiesCardProps {
+interface INftTraitProps {
   propertyId: string
   category?: string
   property?: string
@@ -22,7 +22,7 @@ type userActions = {
 
 
 
-const PropertiesCard = (props: IPropertiesCardProps) => {
+const NftTrait = (props: INftTraitProps) => {
 
   function editingReducer(state: typeof initialState, action: userActions) {
     switch (action.type) {
@@ -190,4 +190,4 @@ const PropertiesCard = (props: IPropertiesCardProps) => {
   )
 }
 
-export default PropertiesCard
+export default NftTrait

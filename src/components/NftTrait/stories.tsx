@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react'
-import PropertiesCard from '.'
+import NftTrait from '.'
 
 export default {
-  title: 'PropertiesCard',
-  component: PropertiesCard
+  title: 'NftTrait',
+  component: NftTrait
 } as Meta
 
 export const Default: Story = (args) => (
-  <PropertiesCard
+  <NftTrait
     {...args}
     propertyId='property1'
     category='category'

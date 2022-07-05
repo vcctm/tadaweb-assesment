@@ -1,10 +1,18 @@
 import { Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 interface ILogoProps {}
 
 const Logo = (props: ILogoProps) => {
     return (
-      <Typography fontSize={32}><b>New</b>Token.</Typography>
+      <Link
+      style={{
+        color: 'unset',
+        textDecoration: 'unset'
+      }}
+      to='/'>
+        <Typography fontSize={32}><b>New</b>Token.</Typography>
+      </Link>
   )
 }
 

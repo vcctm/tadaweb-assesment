@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import Button from 'components/Button'
 import NftImage from 'components/NftImage'
-import NftProperties from 'components/NftProperties'
+import NftTraits from 'components/NftTraits'
 import NftCover from '../../assets/images/YEAHTIGERS4.png'
 
 interface INftComponentProps {}
@@ -47,7 +47,7 @@ const NftComponent = (props: INftComponentProps) => {
       <Typography fontSize={24} fontWeight={'bold'} marginBottom={2}>
           Properties
         </Typography>
-      <NftProperties/>
+      <NftTraits/>
       </Box>
     </Box>
   )

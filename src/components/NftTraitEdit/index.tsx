@@ -1,13 +1,13 @@
 import { AddCircle } from '@mui/icons-material'
 import { Box, IconButton } from '@mui/material'
-import PropertiesCard from 'components/PropertiesCard'
+import PropertiesCard from 'components/NftTrait'
 import React, { useReducer } from 'react'
 import { IPropertyEntity } from 'types'
 import { v4 as uuidv4 } from 'uuid'
 import * as S from './styles'
 import { AnimatePresence, motion } from 'framer-motion'
 
-interface INftPropertiesEditProps {}
+interface INftEditTrait {}
 
 interface IUserActions {
   type: 'newProperty' | 'removeProperty'
@@ -18,7 +18,7 @@ interface IInitialStateProps {
   properties: IPropertyEntity[]
 }
 
-const NftPropertiesEdit = (props: INftPropertiesEditProps) => {
+const NftTraitEdit = (props: INftEditTrait) => {
   const editingReducer = (state: typeof initialState, action: IUserActions) => {
     switch (action.type) {
       case 'newProperty': {
@@ -126,4 +126,4 @@ const NftPropertiesEdit = (props: INftPropertiesEditProps) => {
   )
 }
 
-export default NftPropertiesEdit
+export default NftTraitEdit

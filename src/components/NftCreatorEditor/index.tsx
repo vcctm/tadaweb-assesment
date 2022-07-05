@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import Button from 'components/Button'
 import ImageUpload from 'components/ImageUpload'
-import NftPropertiesEdit from 'components/NftPropertiesEdit'
+import NftPropertiesEdit from 'components/NftTraitEdit'
 import TextField from 'components/TextField'
 
 interface INftCreatorEditorProps {
-  editing: boolean
+  editing?: boolean
 }
 
 const NftCreatorEditor = (props: INftCreatorEditorProps) => {
