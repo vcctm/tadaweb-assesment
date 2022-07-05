@@ -2,10 +2,12 @@ import * as S from './styles'
 
 interface I{{pascalCase name}}Props {}
 
-const {{pascalCase name}} = (props: I{{pascalCase name}}Props) => (
-  <S.Wrapper>
-    <h1>{{pascalCase name}}</h1>
-  </S.Wrapper>
-)
+const {{pascalCase name}} = (props: I{{pascalCase name}}Props) => {
+    return (
+    <S.Wrapper>
+      <h1>{{pascalCase name}}</h1>
+    </S.Wrapper>
+  )
+}
 
 export default {{pascalCase name}}

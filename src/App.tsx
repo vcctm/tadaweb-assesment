@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import HomePage from 'pages/Home'
+import PageRender from 'pages/PageRender'
+import Header from 'components/Header'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import CreateNft from 'pages/CreateNft'
+import NftPage from 'pages/NftPage'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <PageRender>
+        <Header />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/create-nft' element={<CreateNft />} />
+          <Route path='/nft' element={<NftPage />} />
+        </Routes>
+      </PageRender>
+    </Router>
+  )
 }
 
-export default App;
+export default App
