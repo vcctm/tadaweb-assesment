@@ -1,16 +1,16 @@
 import { Typography, useTheme } from "@mui/material"
 import { Box } from "@mui/system"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
-import { useState } from "react";
 import ImageChanger from "components/ImageChanger";
+import { INftEntity } from "types/nft";
 
 interface IImageUploadProps {
   url?: string
+  handleFieldUpdate?: (field: keyof INftEntity, value: string) => void
 }
 
 const ImageUpload = (props: IImageUploadProps) => {
-  const {url} = props;
-  const [imgUrl, setImgUrl] = useState(url);
+  const {url, handleFieldUpdate} = props;
   const theme = useTheme()
 
   const getBase64 = (file: any) => {
@@ -25,13 +25,13 @@ const ImageUpload = (props: IImageUploadProps) => {
     const file = e.target.files[0]
     getBase64(file).then((base64) => {
       localStorage['fileBase64'] = base64
-      setImgUrl(base64 as string)
+      handleFieldUpdate && handleFieldUpdate('nftImageUrl', base64 as string)
       console.debug('file stored', base64)
     })
   }
 
-  if(imgUrl) return (
-    <ImageChanger imageHandler={imageUpload} url={imgUrl}/>
+  if(url) return (
+    <ImageChanger imageHandler={imageUpload} url={url}/>
   )
 
   return (

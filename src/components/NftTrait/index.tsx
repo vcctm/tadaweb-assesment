@@ -4,14 +4,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useReducer } from 'react'
 import * as S from './styles'
 import { motion } from "framer-motion"
+import { INftTraitsEntity } from 'types';
 
 interface INftTraitProps {
   id: string
   category?: string
-  property?: string
+  name?: string
   rate?: number | string
   isEditing?: boolean
+  traits?: INftTraitsEntity[]
   handleRemove?: (e: React.MouseEvent<HTMLElement>, id: string) => void
+  editTraitField?: (traits: INftTraitsEntity[]) => void
 }
 
 type userActions = {
@@ -23,10 +26,15 @@ type userActions = {
 
 
 const NftTrait = (props: INftTraitProps) => {
+  const { id, category, name, rate, isEditing, handleRemove, editTraitField, traits } = props
 
   function editingReducer(state: typeof initialState, action: userActions) {
     switch (action.type) {
       case 'field': {
+        const thisTrait = traits ? traits.find((trait) => trait.id === id) : null
+        if (thisTrait) thisTrait[action.field as keyof INftTraitsEntity] = action.value
+        const updatedTraits = [...traits as INftTraitsEntity[], thisTrait]
+        editTraitField && editTraitField(updatedTraits as INftTraitsEntity[])
         return {
           ...state,
           [action.field]: action.value
@@ -42,17 +50,16 @@ const NftTrait = (props: INftTraitProps) => {
     return state
   }
   
-  const { id, category, property, rate, isEditing, handleRemove } = props
   const initialState = {
     category: category,
-    property: property,
+    name: name,
     rate: rate,
     isEditing: isEditing 
   }
   
   const [state, dispatch] = useReducer(editingReducer, initialState)
   const theme = useTheme()
-  if (!category || !property || !rate) return <></>;
+  if (!category || !name || !rate) return <></>;
   else {
     if (state.isEditing || isEditing)
     return (
@@ -103,12 +110,12 @@ const NftTrait = (props: INftTraitProps) => {
                 fontWeight: 'bold'
               }}
               inputProps={{ style: { textAlign: 'center', padding: '0' } }}
-              value={state.property?.toUpperCase()}
-              defaultValue={state.property}
+              value={state.name?.toUpperCase()}
+              defaultValue={state.name}
               onChange={(e) =>
                 dispatch({
                   type: 'field',
-                  field: 'property',
+                  field: 'name',
                   value: e.currentTarget.value
                 })
               }
@@ -171,7 +178,7 @@ const NftTrait = (props: INftTraitProps) => {
             }}
             fontWeight={'bold'}
             fontSize={20}>
-            {property.toUpperCase()}
+            {name.toUpperCase()}
           </Typography>
           <Typography
             sx={{

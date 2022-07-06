@@ -1,75 +1,45 @@
 import { AddCircle } from '@mui/icons-material'
-import { Box, IconButton } from '@mui/material'
+import { alpha, Box, IconButton, Typography, useTheme } from '@mui/material'
 import NftTrait from 'components/NftTrait'
-import React, { useReducer } from 'react'
+import React from 'react'
 import { INftTraitsEntity } from 'types'
 import { v4 as uuidv4 } from 'uuid'
 import * as S from './styles'
 import { AnimatePresence, motion } from 'framer-motion'
 
-interface INftEditTrait {}
-
-interface IUserActions {
-  type: 'newProperty' | 'removeProperty'
-  id: string
-}
-
-interface IInitialStateProps {
-  traits: INftTraitsEntity[] | []
+interface INftEditTrait {
+  traits?: INftTraitsEntity[] | []
+  addNewTrait?: (traits: INftTraitsEntity[]) => void
+  removeTrait?: ((traits: INftTraitsEntity[]) => void) | undefined
 }
 
 const NftTraitEdit = (props: INftEditTrait) => {
-  const editingReducer = (state: typeof initialState, action: IUserActions) => {
-    switch (action.type) {
-      case 'newProperty': {
-        return {
-          ...state,
-          traits: [
-            ...state.traits,
-            {
-              id: action.id,
-              name: 'EDITNAME',
-              category: 'EDITCATEGORY',
-              rate: '100'
-            }
-          ]
-        }
+  const { traits, addNewTrait, removeTrait } = props
+  const theme = useTheme()
+    const handleNewTrait = (e: React.MouseEvent<HTMLElement>) => {
+      const newTraitId = uuidv4()
+      if(traits && addNewTrait) {
+        addNewTrait([
+          ...traits, {
+            id: newTraitId,
+            category: 'CATEGORY',
+            name: 'NAME',
+            rate: 0.2
+          }
+        ])
       }
-      case 'removeProperty': {
-        const updatedtraits = state.traits.filter(
-          (e: INftTraitsEntity) => e.id !== action.id
-        )
-        return { ...state, traits: updatedtraits }
-      }
-      default:
-        break
-    }
-    return state
-  }
-
-  const initialState: IInitialStateProps = {
-    traits: []
-  }
-  
-  const [state, dispatch] = useReducer(editingReducer, initialState)
-  const handleNewProperty = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    dispatch({
-      type: 'newProperty',
-      id: uuidv4()
-    })
   }
 
-  const handleRemoveProperty = (
+  const handleRemoveTrait = (
     e: React.MouseEvent<HTMLElement>,
-    propertyId: string
+    traitId: string
   ) => {
+    if(traits && removeTrait) {
+      const updatedTraits = traits.filter((trait) => trait.id !== traitId)
+      removeTrait(updatedTraits)
+    }
     e.preventDefault()
-    //TODO: add modal to confirm
-    dispatch({
-      type: 'removeProperty',
-      id: propertyId
-    })
   }
 
   const variantA = {
@@ -84,6 +54,8 @@ const NftTraitEdit = (props: INftEditTrait) => {
 
 
   return (
+    <>
+    <Typography mb={2}><b>NFT</b> Properties</Typography>
     <motion.div
       variants={variantA}
       initial='initial'
@@ -92,15 +64,16 @@ const NftTraitEdit = (props: INftEditTrait) => {
       <S.Wrapper>
         <Box display={'flex'} gap={2} flexWrap={'wrap'}>
           <AnimatePresence>
-            {state.traits.map((trait: INftTraitsEntity) => {
+            {traits?.map((trait: INftTraitsEntity) => {
               return (
                 <NftTrait
                   key={trait.id}
                   id={trait.id}
-                  property={trait.name}
+                  name={trait.name}
                   category={trait.category}
                   rate={trait.rate}
-                  handleRemove={handleRemoveProperty}
+                  traits={traits}
+                  handleRemove={handleRemoveTrait}
                   isEditing
                 />
               )
@@ -108,14 +81,20 @@ const NftTraitEdit = (props: INftEditTrait) => {
           </AnimatePresence>
           <motion.div transition={{ type: 'spring', stiffness: 100 }}>
             <Box
-              height={100}
+              height={102}
               width={180}
               display={'flex'}
               justifyContent='center'
-              alignContent='center'>
+              alignContent='center'
+              sx={{
+                backgroundColor: alpha(theme.palette.primary.main, 0.2),
+                border: `1px solid ${theme.palette.primary.main}`,
+                borderRadius: '4px'
+              }}
+              >
               <IconButton
                 style={{ height: 'fit-content', alignSelf: 'center' }}
-                onClick={handleNewProperty}>
+                onClick={handleNewTrait}>
                 <AddCircle fontSize='large' color='primary' />
               </IconButton>
             </Box>
@@ -123,6 +102,7 @@ const NftTraitEdit = (props: INftEditTrait) => {
         </Box>
       </S.Wrapper>
     </motion.div>
+    </>
   )
 }
 

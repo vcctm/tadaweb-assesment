@@ -11,7 +11,7 @@ export const Default: Story = (args) => (
     {...args}
     id='property1'
     category='category'
-    property='property'
+    name='property'
     rate={1}
   />
 )

@@ -3,21 +3,28 @@ import { Link } from 'react-router-dom'
 import { INftEntity } from 'types/nft'
 import * as S from './styles'
 import { Delete } from '@mui/icons-material'
-import React from 'react'
+import React, { useContext } from 'react'
+import { GlobalContext } from 'store/globalState'
 
 interface IMyNftProps {
   nft: INftEntity
+  removeNftFromState?: (nft: INftEntity) => void
 }
 
-const hadleBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.stopPropagation()
-  // OR
-  e.preventDefault()
-}
+
 
 const MyNft = (props: IMyNftProps) => {
-  const { nft } = props
+  const { nft, removeNftFromState } = props
   const theme = useTheme()
+  const { removeNft } = useContext(GlobalContext)
+
+  const hadleBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    e.preventDefault()
+    removeNftFromState && removeNftFromState(nft)
+    removeNft && removeNft(nft)
+  }
+
   return (
     <Link
       style={{
@@ -27,7 +34,7 @@ const MyNft = (props: IMyNftProps) => {
         zIndex: 1,
         inset: 0,
       }}
-      to={`/nft-${nft.nftId}`}>
+      to={`/nft/${nft.nftId}`}>
       <S.Wrapper
         style={{
           position: 'relative'
@@ -53,10 +60,10 @@ const MyNft = (props: IMyNftProps) => {
           ribbonColor={theme.palette.primary.main}>
           <Grid padding={1}>
             <Typography color={'white'} fontWeight={'bold'}>
-              WZRDS
+            {nft.nftName}
             </Typography>
             <Typography color={'white'} fontWeight={'medium'}>
-              BY WZRDS_XYS
+              BY {nft.nftCollection}
             </Typography>
           </Grid>
         </S.CurvedBottomWrapper>

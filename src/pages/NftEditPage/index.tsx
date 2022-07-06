@@ -1,12 +1,37 @@
-import NftCreatorEditor from "components/NftCreatorEditor";
+/* eslint-disable react-hooks/exhaustive-deps */
+import NftCreatorEditor from 'components/NftCreatorEditor'
+import { useContext, useEffect,  } from 'react'
+import { useParams } from 'react-router-dom'
+import { NftEditPageContext, NftEditPageProvider } from 'store/CreateEditStates'
+import { INftEntity } from 'types/nft'
 
-const NftEditPage = () => {
-  
+
+const NftEditPageRender = ({nftId} : {nftId: string | undefined}) => {
+  const actualNft = JSON.parse(localStorage['yourNfts']).find((nft: INftEntity) => nft.nftId === nftId)
+  const {fetchNft} = useContext(NftEditPageContext)
+  useEffect(() => {
+    fetchNft && fetchNft(actualNft ? actualNft : null)
+  }, [])
+
   return (
-    <>
-      <NftCreatorEditor/>
-    </>
+    <NftCreatorEditor  editing />
   )
 }
 
-export default NftEditPage;
+const NftEditPage = () => {
+  const { nftId } = useParams()
+  console.log("🚀 ~ file: index.tsx ~ line 22 ~ NftEditPage ~ nftId", nftId)
+  
+
+  if (!nftId) {
+    return <></>
+  }
+
+  return (
+    <NftEditPageProvider nft={null}>
+      <NftEditPageRender nftId={nftId}/>
+    </NftEditPageProvider>
+  )
+}
+
+export default NftEditPage

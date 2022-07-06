@@ -17,9 +17,9 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/nft' element={<NftPage />} />
+            <Route path='/nft/:nftId' element={<NftPage />} />
             <Route path='/create-nft' element={<NftCreatePage />} />
-            <Route path='/edit-nft' element={<NftEditPage />} />
+            <Route path='/edit-nft/:nftId' element={<NftEditPage />} />
             <Route path='/your-nfts' element={<YourNftsPage />} />
           </Routes>
         </PageRender>

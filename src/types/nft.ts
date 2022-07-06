@@ -6,5 +6,6 @@ export interface INftEntity {
   nftCollection: string
   nftDateSale: string
   nftImageUrl: string
+  nftDescription: string
   nftTraits: INftTraitsEntity[]
 }

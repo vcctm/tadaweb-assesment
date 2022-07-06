@@ -10,6 +10,7 @@ interface IInitialStateProps {
   yourNfts: INftEntity[] | []
   addNft?: (nft: INftEntity) => void
   removeNft?: (nft: INftEntity) => void
+  editNft?: (nft: INftEntity) => void
 }
 
 
@@ -21,26 +22,28 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }: IGlobalProviderProps) => {
    const [state, dispatch] = useReducer(appReducer, initialState);
-
-   // Actions for changing state
-
    function addNft(nft: INftEntity) {
        dispatch({
            type: 'ADD_NFT',
-           payload: nft
+           nft: nft
        });
    }
-
    function removeNft(nft: INftEntity) {
        dispatch({
            type: 'REMOVE_NFT',
-           payload: nft
+           nft: nft
+       });
+   }
+   function editNft(nft: INftEntity) {
+       dispatch({
+           type: 'EDIT_NFT',
+           nft: nft
        });
    }
 
    return(
-      <GlobalContext.Provider value = {{yourNfts : state.yourNfts, addNft, removeNft}}> 
+      <GlobalContext.Provider value = {{yourNfts : state.yourNfts, addNft, removeNft, editNft}}> 
         {children} 
-   </GlobalContext.Provider>
+      </GlobalContext.Provider>
    )
 }

@@ -18,9 +18,6 @@ export const Wrapper = styled('div')<WrapperType>(({theme, size, backgroundUrl, 
   objectFit: 'cover',
   alignItems: direction === 'bottom' ? 'end' : 'start',
   transition: 'all 0.3s ease-in-out',
-  ':hover': {
-    backgroundSize: '110%'
-  }
 }));
 
 const addMaxWidth = (size:  'small' | 'medium' | 'large') => {

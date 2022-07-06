@@ -1,17 +1,17 @@
 import { Box } from "@mui/material"
 import NftTrait from "components/NftTrait"
+import { INftTraitsEntity } from "types"
 
-interface INftTraitsProps {}
+interface INftTraitsProps {
+  traits?: INftTraitsEntity[] | null
+}
 
 const NftTraits = (props: INftTraitsProps) => {
+  const { traits } = props
     return (
     <Box display={'flex'} gap={2} flexWrap={'wrap'}>
-      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
-      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
-      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
-      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
-      <NftTrait id="1234" property="Some" category="category" rate={0.2}/>
-    </Box>
+      {traits?.map(trait => <NftTrait key={trait.id} id={trait.id} name={trait.name} category={trait.category} rate={trait.rate}/>)}
+          </Box>
   )
 }
 
