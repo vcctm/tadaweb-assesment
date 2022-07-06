@@ -11,11 +11,11 @@ const InfoCard = (props: IInfoCardProps) => {
   return (
     <Box width={'fit-content'} textAlign={'center'}>
       <Grid container justifyContent={'center'} alignItems={'center'}>
-      <Typography fontSize={16}>+</Typography>
-      <Typography fontWeight={'bold'} fontSize={32}>{quantity}</Typography>
+      <Typography fontSize={20}>+</Typography>
+      <Typography fontWeight={'bold'} fontSize={40}>{quantity}</Typography>
       <Typography>K</Typography>
       </Grid>
-      <Typography fontWeight={'light'} fontSize={14}>{infoType}</Typography>
+      <Typography fontWeight={'light'} fontSize={16}>{infoType}</Typography>
     </Box>
   )
 }

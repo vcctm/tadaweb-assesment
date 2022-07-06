@@ -1,15 +1,15 @@
-import MyNfts from "components/MyNfts";
+import MyNfts from 'components/MyNfts'
 
 const YourNftsPage = () => {
-  const test = JSON.parse(localStorage['yourNfts'])
+  const localNfts = localStorage['yourNfts']
+    ? JSON.parse(localStorage['yourNfts'])
+    : []
 
   return (
     <>
-     <MyNfts
-      nfts={test}
-     />
+      <MyNfts localNfts={localNfts} />
     </>
   )
 }
 
-export default YourNftsPage;
+export default YourNftsPage

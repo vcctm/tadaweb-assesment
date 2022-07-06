@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Button from 'components/Button'
 import InfoCard from 'components/InfoCard'
 import { Link } from 'react-router-dom'
@@ -8,21 +8,24 @@ interface IInfoSectionProps {}
 
 const InfoSection = (props: IInfoSectionProps) => {
   const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const matches = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
-    <Grid container>
-      <Grid
-        item
-        zeroMinWidth
+    <Box
+      display={'flex'}
+      flexDirection={matches ? 'column' : 'row'}
+      alignItems={matches ? 'center' : 'unset'}
+      justifyContent={matches ? 'center' : 'space-between'}
+      gap={2}
+      mb={6}
+    >
+      <Box
         flexDirection={'column'}
         display={'flex'}
-        xs={12}
-        md={6}
         alignItems={matches ? 'center' : 'start'}
         justifyContent={matches ? 'center' : 'start'}
         textAlign={matches ? 'center' : 'start'}
-        container>
+        >
         <Typography
           width={'100%'}
           display={'flex'}
@@ -38,6 +41,8 @@ const InfoSection = (props: IInfoSectionProps) => {
           width={'100%'}
           display={'flex'}
           flexWrap={'wrap'}
+          gap={1}
+          mb={2}
           justifyContent={matches ? 'center' : 'start'}
           style={{ wordWrap: 'break-word' }}
           fontSize={24}>
@@ -58,37 +63,37 @@ const InfoSection = (props: IInfoSectionProps) => {
             CREATE NOW
           </Button>
         </Link>
-        <Grid
+        <Box
           marginTop={4}
           display={'flex'}
+          width={'fit-content'}
           justifyContent={matches ? 'center' : 'start'}
           gap={6}>
           <InfoCard quantity={2} infoType={'Artists'} />
           <InfoCard quantity={7} infoType={'Sells'} />
           <InfoCard quantity={12} infoType={'NFTs'} />
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        display={'grid'}
+        </Box>
+      </Box>
+      <Box
         alignContent={'center'}
-        xs={12}
-        md={6}
+        width={'fit-content'}
         justifyContent={matches ? 'center' : 'end'}
-        container>
+        >
         <Box
           component='img'
           sx={{
+            borderRadius: '4px',
             height: 436,
             width: 396,
-            maxHeight: { xs: 218, md: 436 },
-            maxWidth: { xs: 198, md: 396 }
+            objectFit: 'cover',
+            maxHeight: { xs: 258, md: 436 },
+            maxWidth: { xs: '100%', md: 396 }
           }}
           alt='The house from the offer.'
           src={InfoImage}
         />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   )
 }
 

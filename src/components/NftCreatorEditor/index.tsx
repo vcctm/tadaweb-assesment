@@ -4,11 +4,15 @@ import Button from 'components/Button'
 import ImageUpload from 'components/ImageUpload'
 import NftPropertiesEdit from 'components/NftTraitEdit'
 import TextField from 'components/TextField'
-import { NftEditPageContext, IUserActionsEditPage } from 'store/CreateEditStates'
+import {
+  NftEditPageContext,
+  IUserActionsEditPage
+} from 'store/CreateEditStates'
 import { useContext, useEffect, useState } from 'react'
 import { INftEntity } from 'types/nft'
 import { GlobalContext } from 'store/globalState'
 import { v4 as uuid } from 'uuid'
+import { useIsMobile } from 'hook/isMobile'
 
 interface INftCreatorEditorProps {
   editing?: boolean
@@ -17,19 +21,19 @@ interface INftCreatorEditorProps {
 
 const NftCreatorEditor = (props: INftCreatorEditorProps) => {
   const { editing } = props
-  const {nft, editNftField, addNewTrait, removeTrait} = useContext(NftEditPageContext)
+  const { nft, editNftField, addNewTrait, removeTrait } =
+    useContext(NftEditPageContext)
   const [nftId, setNftId] = useState<string | undefined>(nft?.nftId)
-  const [openSnackBar , setOpenSnackBar] = useState<boolean>(false)
+  const [openSnackBar, setOpenSnackBar] = useState<boolean>(false)
+
+  const isMobile = useIsMobile('md')
 
   useEffect(() => {
     setNftId(nft?.nftId)
-  },[])
+  }, [])
   const { addNft, editNft } = useContext(GlobalContext)
 
-  const handleFieldUpdate = (
-    field: keyof INftEntity,
-    value: string,
-  ) => {
+  const handleFieldUpdate = (field: keyof INftEntity, value: string) => {
     if (editNftField) {
       editNftField(field, value)
       if (!editing) editNftField('nftId', uuid())
@@ -39,28 +43,29 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
   const handleCreateEdit = () => {
     !editing && handleFieldUpdate('nftId', uuid())
     if (addNft && editNft) {
-      editing? editNft(nft as INftEntity): addNft(nft as INftEntity)
+      editing ? editNft(nft as INftEntity) : addNft(nft as INftEntity)
       setOpenSnackBar(true)
     }
   }
 
-  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     if (reason === 'clickaway') {
-      return;
+      return
     }
-    setOpenSnackBar(false);
-  };
+    setOpenSnackBar(false)
+  }
 
   return (
     <>
       <Snackbar
         open={openSnackBar}
         autoHideDuration={3000}
-        message={editing? "Edited " + nft?.nftId : "Created NFT " + nft?.nftId}
+        message={editing ? 'Edited ' + nft?.nftId : 'Created NFT ' + nft?.nftId}
         onClose={handleClose}
-        
-      />
-      {' '}
+      />{' '}
       {editing ? (
         <Typography lineHeight={'64px'} fontSize={40} fontWeight={'normal'}>
           Editing NFT:{' '}
@@ -74,22 +79,26 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
           <span style={{ fontWeight: 'bold' }}> NFT:</span>
         </Typography>
       )}
-      <Box display='flex' gap={4}>
+      <Box display='flex' justifyContent={'space-between'} gap={4} flexWrap={isMobile ? 'wrap' : 'unset'}>
         <Box
-          width={'fit-content'}
           display='flex'
           flexDirection='column'
-          alignItems='end'
+          alignItems={isMobile ? 'start' : 'end'}
+          flexWrap={isMobile ? 'wrap' : 'unset'}
+          width={isMobile ? '100%' : 'fit-content'}
           gap={2}>
           {' '}
-          <ImageUpload handleFieldUpdate={handleFieldUpdate} url={nft?.nftImageUrl} />
+          <ImageUpload
+            handleFieldUpdate={handleFieldUpdate}
+            url={nft?.nftImageUrl}
+          />
           <Button
             disabled={nftId === nft?.nftId}
             onClick={() => handleCreateEdit()}
             sx={{
               right: 0
             }}>
-            {editing ? "SAVE" : "CREATE"}
+            {editing ? 'SAVE' : 'CREATE'}
           </Button>
         </Box>
         <Box maxWidth={800}>
@@ -98,33 +107,42 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
             display={'flex'}
             gap={2}
             flexWrap='wrap'
+            justifyContent={'space-between'}
             flexDirection='row'>
-            <Box width={'48%'}>
+            <Box width={isMobile ? '100%' : '48%'}>
               <TextField
                 fullWidth
-                label='NFT Name'
-                variant='filled'
-                onChange={(e) =>
-                  handleFieldUpdate('nftName', e.target.value)
+                label={
+                  <span>
+                    <b>NFT</b> Name
+                  </span>
                 }
+                variant='filled'
+                onChange={(e) => handleFieldUpdate('nftName', e.target.value)}
                 value={nft?.nftName}
               />
             </Box>
-            <Box width={'48%'}>
+            <Box width={isMobile ? '100%' : '48%'}>
               <TextField
                 fullWidth
-                label='NFT Price'
-                variant='filled'
-                onChange={(e) =>
-                  handleFieldUpdate('nftPrice', e.target.value)
+                label={
+                  <span>
+                    <b>NFT</b> Price
+                  </span>
                 }
+                variant='filled'
+                onChange={(e) => handleFieldUpdate('nftPrice', e.target.value)}
                 value={nft?.nftPrice}
               />
             </Box>
-            <Box width={'48%'}>
+            <Box width={isMobile ? '100%' : '48%'}>
               <TextField
                 fullWidth
-                label='NFT Collection'
+                label={
+                  <span>
+                    <b>NFT</b> Collection
+                  </span>
+                }
                 variant='filled'
                 onChange={(e) =>
                   handleFieldUpdate('nftCollection', e.target.value)
@@ -132,10 +150,14 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
                 value={nft?.nftCollection}
               />
             </Box>
-            <Box width={'48%'}>
+            <Box width={isMobile ? '100%' : '48%'}>
               <TextField
                 fullWidth
-                label='NFT Date Sale'
+                label={
+                  <span>
+                    <b>NFT</b> Date Sale
+                  </span>
+                }
                 variant='filled'
                 type={'date'}
                 onChange={(e) =>
@@ -144,11 +166,15 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
                 value={nft?.nftDateSale}
               />
             </Box>
-            <Box width={'98%'}>
+            <Box width={'100%'}>
               <TextField
                 multiline
                 fullWidth
-                label='NFT Description'
+                label={
+                  <span>
+                    <b>NFT</b> Description
+                  </span>
+                }
                 variant='filled'
                 onChange={(e) =>
                   handleFieldUpdate('nftDescription', e.target.value)
@@ -157,7 +183,11 @@ const NftCreatorEditor = (props: INftCreatorEditorProps) => {
               />
             </Box>
           </Box>
-          <NftPropertiesEdit addNewTrait={addNewTrait} removeTrait={removeTrait} traits={nft?.nftTraits} />
+          <NftPropertiesEdit
+            addNewTrait={addNewTrait}
+            removeTrait={removeTrait}
+            traits={nft?.nftTraits}
+          />
         </Box>
       </Box>
     </>

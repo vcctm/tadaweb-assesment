@@ -6,8 +6,9 @@ type WrapperType = {
   direction?: 'bottom' | 'top'
 }
 
+
 export const Wrapper = styled('div')<WrapperType>(({theme, size, backgroundUrl, direction}) => ({
-  maxWidth: size ? addMaxWidth(size) : '200px',
+  maxWidth: (size ? addMaxWidth(size) : '200px'),
   width: size ? addMaxWidth(size) : '200px',
   maxHeight: size ? addMaxHeight(size) : '200px',
   height: size ? addMaxHeight(size) : '200px',
@@ -18,6 +19,10 @@ export const Wrapper = styled('div')<WrapperType>(({theme, size, backgroundUrl, 
   objectFit: 'cover',
   alignItems: direction === 'bottom' ? 'end' : 'start',
   transition: 'all 0.3s ease-in-out',
+  [theme.breakpoints.down('md')] : {
+    maxWidth: '100%',
+    width: '100%'
+  }
 }));
 
 const addMaxWidth = (size:  'small' | 'medium' | 'large') => {

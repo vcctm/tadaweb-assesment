@@ -20,7 +20,6 @@ const NftEditPageRender = ({nftId} : {nftId: string | undefined}) => {
 
 const NftEditPage = () => {
   const { nftId } = useParams()
-  console.log("🚀 ~ file: index.tsx ~ line 22 ~ NftEditPage ~ nftId", nftId)
   
 
   if (!nftId) {

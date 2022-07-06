@@ -16,11 +16,7 @@ export const Wrapper = styled('div')<WrapperType>(({theme, backgroundUrl, direct
   borderRadius: '4px',
   display:'flex',
   objectFit: 'cover',
-  alignItems: 'end',
-  transition: 'all 0.3s ease-in-out',
-  ':hover': {
-    backgroundSize: '110%'
-  }
+  alignItems: 'end'
 }));
 
 type WrapperProps = {

@@ -1,5 +1,6 @@
-import { Box } from '@mui/material'
-import Button from 'components/Button'
+import { Box, Typography } from '@mui/material'
+import {motion} from 'framer-motion'
+import { useIsMobile } from 'hook/isMobile'
 
 interface IImageChangerProps {
   url?: string
@@ -9,24 +10,34 @@ interface IImageChangerProps {
 const ImageChanger = (props: IImageChangerProps) => {
   const { url, imageHandler } = props
 
+  const isMobile = useIsMobile('sm')
+
   return (
     <Box
       position="relative"
       width={'fit-content'}
-    >
-        <Button
-          sx={{
+    ><label htmlFor='imageFile'>
+        <motion.label
+       initial={{ opacity: 0 }}
+       animate={{ opacity: 1 }}
+       exit={{ opacity: 0 }} whileHover={{ scale: 1.02 }}
+          htmlFor='imageFile'
+          style={{
             position: 'absolute',
             right: '0',
-            padding: '8px 8px',
             fontSize: '12px',
             margin: '8px',
-            border: '2px solid white'
+            backgroundColor: 'red',
+            color: 'white',
+            padding: '8px',
+            border: '1px solid white',
+            borderRadius: '4px'
           }}
-        > <label htmlFor='imageFile'>CHANGE IMAGE</label></Button>
+        ><Typography color={'white'} fontSize='12px'>CHANGE IMAGE</Typography></motion.label></label>
       <Box component='img' style={{
-        objectFit: 'cover'
-      }} src={url} width={400} height={500} display={'flex'} flexDirection='column' justifyContent={'center'} alignItems={'center'}>
+        objectFit: 'cover',
+        width: isMobile ? '100%' : '400px'
+      }} src={url}  height={500} display={'flex'} flexDirection='column' justifyContent={'center'} alignItems={'center'}>
       </Box>
       <input
         style={{

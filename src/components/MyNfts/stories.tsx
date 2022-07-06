@@ -7,4 +7,4 @@ export default {
   component: MyNfts
 } as Meta
 
-export const Default: Story = () => <MyNfts nfts={MOCK_NFTS.nfts}/>
+export const Default: Story = () => <MyNfts localNfts={MOCK_NFTS.nfts}/>
